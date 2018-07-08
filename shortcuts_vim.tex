@@ -306,12 +306,18 @@ $> vim -p `cat .sections`   # open tabs from file list
   \hline
 
   \multicolumn{3}{l}{} \\
-  \multicolumn{3}{l}{\vmode{Normal} Tags} \lstinline|:help tags-and-searches| \\
+  \multicolumn{3}{l}{\vmode{Normal} Tools} \\
   \hline
+  \multicolumn{3}{l}{} \lstinline|:help tags-and-searches| \\
   & \keyss{\ctrl, ]} | \keyss{\ctrl, t} & Jump to a tag|jump back \\
   & \lstinline$:tags$ & Show the contents of the tag stack \\
   & \lstinline$:ts$ \textit{name} & List the tags that match \textit{name} \\
   & \keyss{g}\keyss{\ctrl, ]} & Like \keyss{\ctrl, ]}, but show prompt when these is several matches \\
+
+  \multicolumn{3}{l}{} \lstinline|:help quickfix| \\
+  & \lstinline$:cl $\vnum & List the current and next \vnum\ valid errors \\
+  & \lstinline$:cc $\vnum & Display error \vnum \\
+  & \lstinline$:cp$|\lstinline$:cn$ & Display previous|next error in the list \\
   \hline
 \end{longtable}
 
