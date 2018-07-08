@@ -1,0 +1,43 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+
+\begin{longtable}{ l | l }
+\multicolumn{2}{c}{ Applications } \\
+\hline
+\keyss{Win, \return} & Open new terminal \\
+\keyss{Win, \shift, \return} & Open new terminal with \url{tmux} \\
+\keyss{Win, d} & Open application launcher \url{rofi} \\
+\keyss{Win, D} & Open application launcher \url{dmenu} \\
+\keyss{Win, Q} & Close active window \\
+\keyss{Win, o} & Show scratchpad \\
+\keyss{Win, R} & Reload \url{i3} configuration file \\
+\keyss{PrtSc} & Take screenshot and save in \path{$HOME/Temp/Screenshots/} \\
+\keyss{\shift, PrtSc} & Take screenshot and open in \url{Gimp} \\
+\hline
+\multicolumn{2}{c}{ Windows } \\
+\hline
+\keyss{Win, v} & Split a window vertically \\
+\keyss{Win, h} & Split a window horizontally \\
+\keyss{Win, e} & Change container layout horz./vert. \\
+\keyss{Win, s} & Change container layout stacking \\
+\keyss{Win, w} & Change container layout tabbed \\
+\keyss{Win, f} & Toggle fullscreen \\
+\keyss{Win, r} & Resize mode \\
+\keyss{Win, \shift, \SPACE} & Toggle floating \\
+\keyss{Win, Mouse} & Drag floating \\
+\hline
+\multicolumn{2}{c}{ Workspaces } \\
+\hline
+\keyss{Win, 1} | \keyss{2} | .. | \keyss{0} & Switch workspace \\
+\keyss{Win, \shift, 1} | \keyss{2} | .. | \keyss{0} & Move active window to workspace \\
+\keyss{Win, \tab} & Next workspace \\
+\keyss{Win, \shift, \tab} & Previous workspace \\
+\hline
+\multicolumn{2}{c}{ Navigation } \\
+\hline
+\keyss{Win, h} | \keyss{j} | \keyss{k} | \keyss{l} & Focus left|down|up|right \\
+\keyss{Win, H} | \keyss{J} | \keyss{K} | \keyss{L} & Move window left|down|up|right \\
+\hline
+\end{longtable}
+
+\end{document}

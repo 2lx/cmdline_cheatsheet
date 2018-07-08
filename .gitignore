@@ -1,0 +1,5 @@
+.sections
+pdf/*
+*.pdf
+*.aux
+*.log

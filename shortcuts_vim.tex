@@ -1,0 +1,391 @@
+\documentclass[main.tex]{subfiles}
+\newcommand{\vim}{\lstinline{vim}\xspace}
+\newcommand{\vmode}[1]{\colorbox{clrlightgray}{#1 mode}}
+
+\newcommand{\vaddr}[1][]{\textit{addr#1}}
+\newcommand{\vcmd}{\textit{cmd}}
+\newcommand{\vfname}{\textit{filename}}
+\newcommand{\vnum}{\textit{n}}
+\newcommand{\vparam}{\textit{param}}
+\newcommand{\vpattern}{\textit{pattern}}
+\newcommand{\vrange}{\textit{range}}
+\newcommand{\vregister}{\textit{reg}}
+\newcommand{\vvalue}{\textit{value}}
+\begin{document}
+
+\begin{lstlisting}
+$> vim -u FileName                          # load non-standard vim settings
+# doesn't load .vimrc but vi-nocompatible mode
+$> vim -u NONE -N
+$> vim --version                            # list features
+$> vim -p `cat .sections`                   # load args
+\end{lstlisting}
+
+\setlength\LTleft{0pt}
+\setlength\LTright{0pt}
+\begin{longtable}{ r l | l}
+  \multicolumn{3}{l}{\vmode{Normal}: Motions} \lstinline$:help navigation$ \\
+  \hline
+  \multicolumn{3}{l}{} \lstinline$:help left-right-motions$ \\
+  {[}\vnum] & \keyss{h} | \keyss{\SPACE} & To the left \\
+  {[}\vnum] & \keyss{l} | \keyss{\backspace} & To the right \\
+  & \keyss{0} | [\vnum]\keyss{\$} & To the first char|end of next \vnum\textsuperscript{th} line \\
+  & \keyss{\^{}} | \keyss{g}\keyss{\_} & To the first|last non-blank char \\
+  & \keyss{g}\keyss{0} | \keyss{g}\keyss{\$} & To the first|last char of \textbf{screen} line \\
+  & \keyss{g}\keyss{\^{}} & To the first non-blank char of \textbf{screen} line \\
+  & \keyss{g}\keyss{m} & Half a screenwidth to the right \\
+  {[}\vnum] & \keyss{|} & To \vnum\textsuperscript{th} screen column \\
+  {[}\vnum] & \keyss{f} | \keyss{F} \emph{char} & To the \vnum\textsuperscript{th} occurence of \emph{char} to the right|left \\
+  {[}\vnum] & \keyss{t} | \keyss{T} \emph{char} & Till before|after \vnum\textsuperscript{th} occurence of \emph{char} to the right|left \\
+  {[}\vnum] & \keyss{;} | \keyss{{,}} & Repeat latest \keyss{f}, \keyss{F}, \keyss{t}, or \keyss{T} in opposite direction \\
+
+  \multicolumn{3}{l}{} \lstinline$:help up-down-motions$ \\
+  {[}\vnum] & \keyss{j} | \keyss{\arrowkeydown} | \keyss{k} | \keyss{\arrowkeyup} & \vnum\ lines downward|downward|upward|upward \\
+  {[}\vnum] & \keyss{g}\keyss{j} | \keyss{g}\keyss{k} & \vnum\ \textbf{screen} lines downward|upward \\
+  {[}\vnum] & \keyss{+} | \keyss{-} & \vnum\ lines downward|upward, the first non-blank char \\
+  {[}\vnum] & \keyss{g}\keyss{g} | \keyss{G} & To the first|last|\vnum\textsuperscript{th} line \\
+  {[}\vnum] & \keyss{n} | \keyss{N} & Repeat last search in file|invert direction \\
+  {[}\vnum] & \lstinline$/string$ | \lstinline$?string$ & Search ''string'' in file forward|backward \\
+  & \keyss{:} \vrange & Set cursor on the last line number in \vrange \\
+
+  \multicolumn{3}{l}{} \lstinline$:help word-motions$ \\
+  {[}\vnum] & \keyss{w} | \keyss{b} & To the first char of next|previous word \\
+  {[}\vnum] & \keyss{e} | \keyss{g}\keyss{e} & To the last char of next|previous word \\
+  {[}\vnum] & \keyss{W} | \keyss{B} & \multicolumn{1}{l}{To the first char of next|previous WORD} \lstinline$:h WORD$ \\
+  {[}\vnum] & \keyss{E} | \keyss{g}\keyss{E} & To the last char of next|previous WORD \\
+
+  \multicolumn{3}{l}{} \lstinline$:help object-motions$ \\
+  {[}\vnum] & \keyss{(} | \keyss{)} | \keyss{\}} | \keyss{\{} & \vnum\ sentences|paragraphs backward|forward \\
+
+  \multicolumn{3}{l}{} \lstinline$:help mark-motions$ \\
+  & \keyss{m}\keyss{a-zA-Z} & Set mark \{a-zA-Z\} at cursor position \\
+  & \keyss{'}\keyss{a-zA-Z} | \keyss{`}\keyss{a-zA-Z} & Jump to first char of mark line|to mark \\
+  & \keyss{`}\keyss{`} | \vaddr & Jump to the last motion place|\vaddr-format mark \\
+  & \keyss{\%} | \keyss{`}\keyss{`} & Jump to paired bracket (keywords)|go back \\
+
+  \multicolumn{3}{l}{} \lstinline|:help jump-motions| \\
+  {[}\vnum] & \keyss{\ctrl, o} | \keyss{ctrl, i} & Go to \vnum\ older|newer cursor position in jump list \\
+  & \lstinline|:ju| & Print the jump list \\
+
+  \multicolumn{3}{l}{} \lstinline|:help changelist|  \\
+  {[}\vnum] & \keyss{g}\keyss{;} | \keyss{g}\keyss{,} & Go to \vnum\ older|newer position in change list \\
+  & \lstinline|:changes| & Print the change list \\
+
+  \multicolumn{3}{l}{} \lstinline|:help various-motions| \\
+  {[}\vnum] & \keyss{\%} & Jump matching parenthesis in this line \\
+  {[}\vnum] & \keyss{H} | \keyss{M} | \keyss{L} & To line \vnum\ from top|middle|bottom on the first non-blank char \\
+  \hline
+
+  \multicolumn{3}{l}{} \\
+  \multicolumn{3}{l}{\vmode{Normal}: Text object selection} \lstinline|:help object-select|  \\
+  $\bullet$ & \multicolumn{2}{l}{only used after an operators in \vmode{Operator-pending} or \vmode{Visual}} \\
+  \hline
+  {[}\vnum] & \keyss{i} | \keyss{a} & \emph{Prefixes}: Inner|around object \\
+  {[}\vnum] & \keyss{w} | \keyss{W} | \keyss{s} | \keyss{p} & \emph{Suffixes}: A word|WORD|sentense|paragraph under cursor \\
+  {[}\vnum] & \keyss{\{} | \keyss{[} | \keyss{(} | \keyss{\"{}} & \emph{Suffixes}: Text inside \{..\} | [..] | (..) | ''..'' \\
+  {[}\vnum] & \keyss{\'{}} | \keyss{\`{}} | \keyss{<} | \keyss{t} & \emph{Suffixes}: Text inside '..' | `..` | <..> | <tag>..</tag> \\
+  \hline
+
+  \multicolumn{3}{l}{} \\
+  \multicolumn{3}{l}{\vmode{Normal}: Operators} \lstinline|:help operator|  \\
+  $\bullet$ & \multicolumn{2}{l}{only used before motion and text object selection commands} \\
+  $\bullet$ & \multicolumn{2}{l}{after operator command \vim is waiting for a Motion in \vmode{Operator-pending}} \\
+  $\bullet$ & \multicolumn{2}{l}{repeat operator twice process the current line} \\
+  $\bullet$ & \multicolumn{2}{l}{by default use register \{''\}} \\
+  $\bullet$ & \multicolumn{2}{l}{to change default register use \keyss{''}\vregister} \\
+  $\bullet$ & \multicolumn{2}{l}{registers \{*\} and \{+\} used for primary and system clipboard} \\
+  \hline
+  {[}\vnum] & \keyss{d} & Delete \\
+  {[}\vnum] & \keyss{<} | \keyss{>} & Shift left|right \\
+  {[}\vnum] & \keyss{c} & Change (replace) \\
+  & \keyss{g}\keyss{U} | \keyss{g}\keyss{u} & Make uppercase|lowercase \\
+  & \keyss{g}\keyss{\~{}} & Swap case \\
+  & \keyss{=} & C-indenting (or filter through \lstinline|equalprg| if set) \\
+  & \keyss{!} & Filter through an external program \\
+  {[}\vnum] & \keyss{y} & Yank (copy) into \vim registers \{''\} and \{0\} \\
+  & \keyss{g}\keyss{?} & ROT13 encoding \\
+  & \keyss{g}\keyss{q} & Text formatting \\
+  & \keyss{z}\keyss{f} & Define a fold \\
+  & \keyss{g}\keyss{@} & Call function set with the \lstinline|operatorfunc| \\
+  \hline
+
+  \multicolumn{3}{l}{} \\
+  \multicolumn{3}{l}{\vmode{Normal}: Editing } \lstinline|:help change.txt| \\
+% :help inserting replacing simple-change deleting copy-move| \\
+  \hline
+  {[}\vnum] & \keyss{i} | \keyss{I} & \vmode{Insert} Insert text before the cursor|current line \vnum\ times \ \\
+  {[}\vnum] & \keyss{a} | \keyss{A} & \vmode{Insert} Append text after the cursor|current line \vnum\ times \\
+  {[}\vnum] & \keyss{g}\keyss{i} | \keyss{g}\keyss{I} & \vmode{Insert} Insert text in last inserted position|in column 1 \\
+  {[}\vnum] & \keyss{o} | \keyss{O} & \vmode{Insert} Begin new line below|above current line \vnum\ times \\
+  {[}\vnum] & \keyss{J} | \keyss{g}\keyss{J} & Join \vnum\ lines, remove|don't remove any spaces \\
+  {[}\vnum] & \keyss{r} | \keyss{R} & \vmode{Replace} Replace one|several chars, repeat text \vnum-1 times \\
+  \multirow{2}{*}{{[}\vnum]} & \multirow{2}{*}{\keyss{g}\keyss{r} | \keyss{g}\keyss{R}} & \vmode{Virtual Replace} Replace one|several chars in \textbf{screen} \\
+  & & space, repeat text \vnum-1 times \\
+  {[}\vnum] & \keyss{s} | \keyss{S} & \vmode{Insert} Delete \vnum\ current symbols|lines into \vregister\{x\} \\
+  {[}\vnum] & \keyss{C} & \vmode{Insert} Delete from the cursor to end of \vnum-1 lines \\
+  {[}\vnum] & \keyss{x} | \keyss{X} & Delete \vnum\ chars after|before cursor \\
+  {[}\vnum] & \keyss{p} | \keyss{P} & Put text from \vregister\{x\} after|before the cursor \vnum\ times \\
+  {[}\vnum] & \keyss{\~{}} & Swap case \vnum\ chars under cursor \\
+  \hline
+
+  \multicolumn{3}{l}{} \\
+  \multicolumn{3}{l}{\vmode{Normal}: Repeating} \lstinline|:help repeating|  \\
+  \hline
+
+  \multicolumn{3}{l}{} \lstinline|:help single-repeat|  \\
+  {[}\vnum] & \keyss{.} & Repeat last change, with count replaced with \vnum \\
+  {[}\vnum] & \keyss{@}\keyss{:} & Repeat last command-line \vnum\ times \\
+
+  \multicolumn{3}{l}{} \lstinline|:help multi-repeat|  \\
+  & \lstinline$:$[\vrange]\lstinline$g/$\emph{pattern}\lstinline$/$\vcmd & Execute \vcmd\ on the lines within \vrange\ where \emph{pattern} matches  \\
+  & \lstinline$:$[\vrange]\lstinline$v/$\emph{pattern}\lstinline$/$\vcmd & Same as \lstinline|:g!| \\
+  & \lstinline$:g/TODO/yank A$ & Yank into \vregister\{a\} (append mode) all lines matched ''TODO'' \\
+  & \lstinline$:g/{/ .+1,/}/-1 sort$ & Sort each \{..\} block in CSS file \\
+
+  \multicolumn{3}{l}{} \lstinline|:help complex-repeat|  \\
+  & \lstinline$q$\vregister\ ... \lstinline$q$ & Record typed characters into \vregister\ ... Stop recording \\
+  {[}\vnum] & \lstinline$@$\vregister & \multicolumn{1}{l}{Execute the contents of \vregister\ \vnum\ times} \lstinline|:h registers|  \\
+  {[}\vnum] & \lstinline$@@$ & Repeat the previous \lstinline$@$\vregister\ \vnum\ times \\
+  & \lstinline$:$[\vrange]\lstinline$@$\vregister|\lstinline$*$\vregister & Execute the contents of \vregister as an Ex command \\
+  & \lstinline$:$[\vrange]\lstinline$@:$ & Set cursor at line \vrange, repeat last command line\\
+  & \lstinline$:norm $\vcmd & Execute \vmode{Normal} \vcmd s, typed on the command-line \\
+
+  \multicolumn{3}{l}{} \lstinline|:help using-scripts|  \\
+  & \lstinline$:so $\vfname & Read Ex commands from \vfname \\
+  \hline
+
+  \multicolumn{3}{l}{} \\
+  \multicolumn{3}{l}{\vmode{Cmdline}: Patterns and search commands} \lstinline|:help pattern-searches|  \\
+  \hline
+  {[}\vnum] & \lstinline$/$\vpattern[\lstinline$/$][\textit{offset}] & Search forward for the \vnum\textsuperscript{th} occurence of \vpattern\, add \textit{offset} lines \\
+  {[}\vnum] & \lstinline$?$\vpattern[\lstinline$?$][\textit{offset}] & Search backward for the \vnum\textsuperscript{th} occurence of \vpattern, add \textit{offset} \\
+  {[}\vnum] & \lstinline$/$|\lstinline$?$ & Search forward|backward for the \vnum\textsuperscript{th} occurence of latest pattern \\
+  {[}\vnum] & \lstinline$//e$ & Search forward for the \vnum\textsuperscript{th} occurence, put cursor at last char  \\
+  {[}\vnum] & \keyss{*} | \keyss{\#} & Search forw|backw for the \vnum\textsuperscript{th} occurence of word under cursor \\
+  {[}\vnum] & \keyss{g}\keyss{*} | \keyss{g}\keyss{\#} & Like \lstinline$*$|\lstinline$#$ but don't put ''\textbackslash<'' and ''\textbackslash>'' around the word \\
+  & \lstinline$:noh$|\lstinline$:hls$ & Stop|start the highlighting for the \lstinline|hlsearch| option \\
+
+  \multicolumn{3}{l}{} \lstinline|:help magic|  \\
+  & \lstinline$\v$ & All ASCII chars except \{0-9a-zA-Z\_\} have a special meaning \\
+  & \lstinline$\V$ & Only chars \{\textbackslash?/\} have a special meaning \\
+  & \lstinline$\c$|\lstinline$\C$ & Ignore|match case, do not use \lstinline|ignorecase| option \\
+  & \lstinline$:$\keyss{\ctrl, r}\vregister & Paste to cmdline \vregister\ value \\
+  {[}\vnum] & \keyss{n} | \keyss{N} & Repeat last search in file|invert direction \vnum\ times \\
+
+  \multicolumn{3}{l}{} \lstinline|:help substitute|  \\
+  & \lstinline$:%s///gn$ & Report the number of matches (do not substitute) \\
+  & \lstinline$:$[range]\lstinline$s///$[\lstinline$g$] & For each line in \vrange\ replace one match [all matches] of \vpattern  \\
+  & \lstinline$:%s///gc$ & Confirm each substitution \\
+  \hline
+
+  \multicolumn{3}{l}{} \\
+  \multicolumn{3}{l}{\vmode{Normal}: Other} \lstinline|:help |  \\
+  & \keyss{v} | \keyss{V} | \keyss{\ctrl, v} & Switch to \vmode{Visual}|\vmode{Visual Line}|\vmode{Visual Block} \\
+  & \keyss{g}\keyss{v} & Toggle last \vmode{Visual} and select last selection \\
+  {[}\vnum] & \keyss{\&} & Repeat latest substitution \\
+  & \keyss{*} & Search word under cursor \\
+  {[}\vnum] & \keyss{\ctrl, a} | \keyss{\ctrl, x} & Search next number and add|sub \vnum \\
+  & \keyss{K} & Find man for word under cursor \\
+  & \keyss{g}\keyss{a} & Show symbol ASCII code \\
+  & \keyss{g}\keyss{R} & Toggle \vmode{Visual Replace} \\
+  & \keyss{\ctrl, g} & Show info about current file \\
+  {[}\vnum] & \keyss{z}\keyss{z} & Show n\textsuperscript{th}|current line in screen center \\
+  \hline
+
+  \multicolumn{3}{l}{ } \\
+  \multicolumn{3}{l}{\vmode{Insert}} \lstinline|:help ins-special-keys|  \\
+  \hline
+  & \keyss{\esc} | \keyss{\ctrl, [} & Quit \vmode{Insert}, go back to \vmode{Normal} \\
+  & \keyss{Insert} & Toggle \vmode{Insert} | \vmode{Replace} \\
+  & \keyss{\ctrl, h} | \keyss{\ctrl, w} & Delete the char|word before the cursor \\
+  & \keyss{\ctrl, u} & Delete all chars before the cursor in the current line \\
+  & \keyss{\ctrl, j} | \keyss{\ctrl, m} & Begin new line \\
+  & \keyss{\ctrl, n} | \keyss{\ctrl, p} & Find next|previous keyword \\
+  & \keyss{\ctrl, A} & Insert previously inserted text \\
+  & \keyss{\ctrl, o} & \vmode{Insert Normal} (let do one normal command) \\
+  & \keyss{\ctrl, r} \vregister & Paste text from \vim \vregister \\
+  & \keyss{\ctrl, r}\keyss{\ctrl, r} \vregister & Paste text from \vim \vregister\ with keeping format \\
+  & \keyss{\ctrl, r}\keyss{=} & Open \vregister-calculator \\
+  & \keyss{\ctrl, v} [\keyss{u}] & Write symbol by ASCII code [unicode]\\
+  & \keyss{\ctrl, k}\keyss{char}[\keyss{char}] & \multicolumn{1}{l}{Enter digraph} \lstinline$:h digraph-table$ \\
+  & \keyss{\ctrl, t} | \keyss{\ctrl, d} & Insert|delete one shiftwidth of indent at the start of the line \\
+  \hline
+
+  \multicolumn{3}{l}{ } \\
+  \multicolumn{3}{l}{ \vmode{Visual} } \\
+  $\bullet$ & \multicolumn{2}{l}{any \vmode{Normal} Motion} \\
+  $\bullet$ & \multicolumn{2}{l}{any \vmode{Normal} Operator} \\
+  \hline
+  & \keyss{\ctrl, g} & Toggle \vmode{Select} \\
+  & \keyss{v} | \keyss{V} | \keyss{\ctrl, v} & \vmode{Visual}|\vmode{Normal}\\
+  & \keyss{o} & Move cursor to the end of selected text \\
+  & \keyss{x} | \keyss{r} | \keyss{c} & Delete|replace|edit all selectied text \\
+  & \keyss{I} | \keyss{A} & \vmode{Insert} before|after selection \\
+  & \keyss{:} & \vmode{Cmdline} add selected \vrange\ in prompt line \\
+  \hline
+
+  \multicolumn{3}{l}{} \\
+  \multicolumn{3}{l}{\vmode{Normal}: Buffers \& windows} \lstinline|:help buffers|  \\
+  \hline
+  \multicolumn{3}{l}{} \lstinline|:help opening-window| \\
+  & \keyss{\ctrl, w}(\keyss{s} | \keyss{v}) & \multirow{2}{*}{Split current window in two vert|hor} \\
+  & \lstinline$:sp$|\lstinline$:vsp$ \vfname & \\
+  & \keyss{\ctrl, w}\keyss{n} | \lstinline|:new| & Create a new window with empty file, split horizontally \\
+  & \lstinline|:vnew| & Create a new window with empty file, split vertically \\
+  {[}\vnum] & \keyss{\ctrl, w}\keyss{q} | \lstinline|:q|[\lstinline|!|]  & Quit the current window or \vnum\textsuperscript{th} window [lost any changes] \\
+  {[}\vnum] & \keyss{\ctrl, w}\keyss{c} | \lstinline|:clo| & Hide the current or \vnum\textsuperscript{th} window if \lstinline|hidden| is set \\
+  & \lstinline|:|\vnum\lstinline|hid| & Hide the current or \vnum\textsuperscript{th} window \\
+  {[}\vnum] & \keyss{\ctrl, w}\keyss{o} | \lstinline|:on| & Make the current window the only on the screen \\
+  \multicolumn{3}{l}{} \lstinline|:help window-move-cursor| \\
+  {[}\vnum] & \keyss{\ctrl, w}(\keyss{h} | \keyss{l}) & Move cursor to \vnum\textsuperscript{th} window left|right of current one \\
+  {[}\vnum] & \keyss{\ctrl, w}(\keyss{j} | \keyss{k}) & Move cursor to \vnum\textsuperscript{th} window below|above of current one \\
+  {[}\vnum] & \keyss{\ctrl, w}(\keyss{w} | \keyss{W}) & Move cursor to \vnum\textsuperscript{th} window below/right|above/left of current \\
+  & \keyss{\ctrl, w}(\keyss{t} | \keyss{b}) & Move cursor to top-left|bottom-right window \\
+  \multicolumn{3}{l}{} \lstinline|:help window-moving| \\
+  & \keyss{\ctrl, w}(\keyss{r} | \keyss{R}) & Rotate windows downwards|upwards \\
+  {[}\vnum] & \keyss{\ctrl, w}\keyss{x} & Exchange current window with next one|\vnum\textsuperscript{th} one \\
+  & \keyss{\ctrl, w}(\keyss{H} | \keyss{L}) & Move the current window to be at the far left|right \\
+  & \keyss{\ctrl, w}(\keyss{J} | \keyss{K}) & Move the current window to be at the very bottom|top \\
+  & \keyss{\ctrl, w}\keyss{T} & Move the current window to a new tab page \\
+
+  \multicolumn{3}{l}{} \lstinline|:help window-resize| \\
+  {[}\vnum] & \keyss{\ctrl, w}(\keyss{-} | \keyss{+}) & \multirow{2}{*}{Decrease|increase current window height by \vnum} \\
+  & \lstinline|:res -|\vnum|\lstinline|+|\vnum & \\
+  {[}\vnum] & \keyss{\ctrl, w}(\keyss{<} | \keyss{>}) & \multirow{2}{*}{Decrease|increase current window width by \vnum} \\
+  & \lstinline|:vertical res -|\vnum|\lstinline|+|\vnum & \\
+  {[}\vnum] & \keyss{\ctrl, w}(\keyss{\_} | \keyss{|}) & Set current window height|width to \vnum \\
+  \multicolumn{3}{l}{} \lstinline|:help buffer-list list-repeat| \\
+  & \lstinline|:|[\vrange]\lstinline|windo| \vcmd & Execute \vcmd\ in each window or \vrange \\
+  & \lstinline|:|[\vrange]\lstinline|bufdo| \vcmd & Execute \vcmd\ in each buffer or \vrange\ in buffer list \\
+  \multicolumn{3}{l}{} \lstinline|:help window-tag| \\
+  {[}\vnum] & \keyss{\ctrl, w}\keyss{]} & Split current window in two, jump to tag under cursor \\
+  {[}\vnum] & \keyss{\ctrl, w}\keyss{f} & Split current window in two, edit file name under cursor \\
+
+  \multicolumn{3}{l}{} \lstinline|:help buffer-hidden| \\
+  & \lstinline$:files$|\lstinline$:buffers$|\lstinline$:ls$ & List all buffers \\
+  & \lstinline|:bad |\vfname & Add \vfname\ to the buffer list, without loading it \\
+  & \lstinline|:|[\vnum]\lstinline|b |[\vfname] & Edit buffer \vnum\ or \vfname \\
+  & \lstinline$:$[\vrange]\lstinline$bd$ & Unload buffers \vrange\ and delete it from the buffer list \\
+  & \lstinline$:$[\vnum]\lstinline$bn$|\lstinline$:$[\vnum]\lstinline$bp$ & Go to \vnum\textsuperscript{th} next|previous buffer in buffer list \\
+  & \lstinline$:bf$|\lstinline$:bl$ & Go to first|last buffer in buffer list \\
+  \hline
+
+  \multicolumn{3}{l}{} \\
+  \multicolumn{3}{l}{\vmode{Normal}: Files} \lstinline|:help edit-files| \\
+  \hline
+  & \lstinline|:f|  & Prints the current file name \\
+
+  \multicolumn{3}{l}{} \lstinline|:help edit-a-file| \\
+  & \lstinline|:e|  & Re-edit the current file \\
+  & \keyss{\ctrl, \^{}} & Show the alternate file (see in \lstinline$:ls$) \\
+  & \keyss{g}\keyss{f} & Edit the file whose name is under or after the cursor \\
+
+  \multicolumn{3}{l}{} \lstinline|:help arglist| \\
+  & \lstinline|:ar|  & Print the argument list \\
+  & \lstinline|:arge| \vfname & Add the \vfname\ to the argument list and edit it \\
+  & \lstinline|:arga| \vfname & Add the \vfname s to the argument list \\
+  & \lstinline|:argd| \vfname & Delete files from the argument list \\
+  & \lstinline|:argu| \vnum & Edit file \vnum\ in the argument list \\
+  & \lstinline$:p$|\lstinline$:n$ & Edit \vnum\textsuperscript{th} previous|next file \\
+  & \lstinline$:fir$|\lstinline$:la$ & Edit first|last file \\
+  & \lstinline$:argdo$ \vcmd & Executr \vcmd for each file in the argument list \\
+
+  \multicolumn{3}{l}{} \lstinline|:help writing| \\
+  & \lstinline$:w $[\lstinline$!$] & Write the whole buffer to the current file [forcefully] \\
+  & \lstinline$:wa $[\lstinline$!$] & Write all changed buffers [forcefully] \\
+  & \lstinline$:sav $[\lstinline$!$] \vfname & Save the current buffer under the name \vfname \\
+
+  \multicolumn{3}{l}{} \lstinline|:help write-quit| \\
+  & \lstinline$:q $[\lstinline$!$] & Quit the current window [without writing] \\
+  & \lstinline$:wq$|\lstinline$:x $[\lstinline$!$]|\keyss{Z}\keyss{Z} & Write the current file and quit \\
+  & \lstinline$:qa $[\lstinline$!$] & Exit \vim [without writing] \\
+
+  \multicolumn{3}{l}{} \lstinline|:help current-directory| \\
+  & \lstinline$:cd$|\lstinline$:pwd$ & Print the current directory \\
+  & \lstinline$:cd $ \vfname & Change the current directory \\
+
+  \multicolumn{3}{l}{} \lstinline|:help encryption| \\
+  & \lstinline$:X$ & Prompt for an encryption key \\
+  \hline
+\end{longtable}
+
+\begin{longtable}{ l l | l}
+  \multicolumn{3}{l}{} \\
+  \multicolumn{3}{l}{\vmode{Cmdline}: Shortcuts} \\
+  \hline
+  & \lstinline$:$[string]\keyss{\ctrl, d} & Show completion variants \\
+  & \lstinline$:$\keyss{\ctrl, r}\keyss{\ctrl, w} & Print to prompt word under cursor \\
+  & \lstinline$:$\keyss{\ctrl, r}\keyss{\ctrl, a} & Print to prompt WORD under cursor \\
+  & \lstinline$:$\keyss{\ctrl, p} | \keyss{\ctrl, n} & Previous|next command \\
+  & \lstinline$@:$ & Repeat last command \\
+  & \keyss{q}\keyss{:} | \keyss{q}\keyss{/} & Show command|search history \\
+  & \lstinline$:$\keyss{\ctrl, f} & Show command history in \vmode{Cmdline} \\
+  & \lstinline$:!$\vcmd\lstinline$ $[\vrange] & Execute shell \vcmd\ with \vrange \\
+  & \keyss{\ctrl, w}(\keyss{h} | \keyss{j} | \keyss{k} | \keyss{l} | \keyss{w}) & Focus left|down|up|right|last buffer \\
+  & \keyss{\ctrl, w}(\keyss{c} | \keyss{o}) & Close active|other window \\
+  & \keyss{\ctrl, w}(\keyss{=} | \vnum \keyss{\_} | \vnum \keyss{|}) & Set same size|\vnum\ height|\vnum\ width \\
+  & \keyss{g}\keyss{t} | \keyss{g}\keyss{T} & Go next|prev tab \\
+  \hline
+\end{longtable}
+
+\begin{longtable}{ l | l | l}
+  \multicolumn{3}{c}{ \vmode{Cmdline}: Files and buffers } \\
+  \hline
+  \lstinline$:ar$ [\vfname] [\vfname] & \lstinline$args$ & List args|set argument list \\
+  \lstinline$:ar `cat .sections`$ & \lstinline$args$ & Load files from list to \vim \\
+  \lstinline$:... `$\vcmd\lstinline$`$ & & Execute \vcmd\ in shell \\
+  \lstinline$:cl$|\lstinline$:on$ & \lstinline$close$|\lstinline$only$ & Close active|other windows \\
+  \lstinline$:tabe$ \vfname & \lstinline$tabedit$ & Create new tab [edit \vfname] \\
+  \lstinline$:tabc$|\lstinline$:tabo$ & \lstinline$tabclose$|\lstinline$tabonly$ & Close active|other tabs \\
+  \lstinline$:tabn $[\vnum]|\lstinline$:tabp$ & \lstinline$tabnext$|\lstinline$tabprevious$ & Open next [or \vnum]|previous tab \\
+  \lstinline$:tabm $\vnum & \lstinline$tabmove$ & Move current tab after \vnum \\
+  \hline
+
+  \multicolumn{3}{c}{ \vmode{Cmdline}: Commands } \\
+  \hline
+  \lstinline$:ve$ & \lstinline$version$ & List features \\
+  \lstinline$:h :$[\vcmd] & \lstinline$help$ & Show info about \vim [\vcmd] \\
+  \lstinline|:so $MYVIMRC| & \lstinline$source$ & Reload \vim settings \\
+  \lstinline$:r !$\vcmd & \lstinline$read$ & Read output shell \vcmd in buffer \\
+  \lstinline$:set$\vparam[\lstinline$=$\vvalue] & \lstinline$set$ & Set parameter value \\
+  \lstinline$:set$\vparam? & \lstinline$set$ & Show parameter value \\
+  \lstinline$:$[\vrange]\lstinline$s/t1/t2$[\lstinline$/g$] & \lstinline$substitute$ & Replace ''t1'' with ''t2'' within \vrange \\
+  \lstinline$:$[\vrange]\lstinline$p$ & \lstinline$print$ & Print \vrange \\
+  \lstinline$:$[\vrange]\lstinline$t$ \vaddr & \lstinline$copy$ & Copy \vrange\ lines and paste after \vaddr \\
+  \lstinline$:$[\vrange]\lstinline$m$ \vaddr & \lstinline$move$ & Move \vrange\ lines and after \vaddr \\
+  \lstinline$:$[\vrange]\lstinline$norm $\vcmd & \lstinline$normal$ & Process \vmode{Normal} \vcmd\ with \vrange \\
+  \lstinline$:sh$ & \lstinline$shell$ & Launch shell \\
+  \lstinline$:pw$ & \lstinline$pwd$ & Print work dir \\
+  \lstinline$:fin $\vfname & \lstinline$find$ & Find \vfname in \lstinline$path$ \\
+  \lstinline$:!mkdir -p %:h$ & & Create path to current file \\
+  \lstinline$:w !sudo tee % > /dev/null$ & & Save file opened without write rights \\
+  \hline
+\end{longtable}
+
+\begin{longtable}{ l | l}
+  \multicolumn{2}{c}{ \vrange\ examples } \\
+  \hline
+  \vaddr[1][\lstinline$,$\vaddr[2]] & Lines [\vaddr[1], \vaddr[2]] \\
+  \lstinline$2,5$ & 2\textsuperscript{nd} to 5\textsuperscript{th} lines \\
+  \lstinline$%$ & All lines (\lstinline|1,$|) \\
+  \lstinline$.$ & Current line (default) \\
+  \hline
+
+  \multicolumn{2}{c}{ \vaddr\ examples } \\
+  \hline
+  \lstinline$85$ & The 85\textsuperscript{th} line \\
+  \lstinline$.$ & Current line \\
+  \lstinline$0$ & Mark BOF \\
+  \lstinline|$| & Last line in file \\
+  \lstinline$`<$ & Mark selection first line \\
+  \lstinline$`>$ & Mark selection last line \\
+  \lstinline$``$ & Mark last motion place \\
+  \lstinline$`.$ & Mark last edit place \\
+  \lstinline$`^$ & Mark last insert place \\
+  \lstinline$`m$ & Line with mark ''m'' \\
+  \lstinline$/string/$ & First line with ''string'' after current in whole file \\
+  \vaddr \lstinline$+4$ & Calculate result line number \\
+  \hline
+\end{longtable}
+
+\end{document}
