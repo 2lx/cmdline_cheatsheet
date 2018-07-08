@@ -304,6 +304,15 @@ $> vim -p `cat .sections`   # open tabs from file list
   \multicolumn{3}{l}{} \lstinline|:help encryption| \\
   & \lstinline$:X$ & Prompt for an encryption key \\
   \hline
+
+  \multicolumn{3}{l}{} \\
+  \multicolumn{3}{l}{\vmode{Normal} Tags} \lstinline|:help tags-and-searches| \\
+  \hline
+  & \keyss{\ctrl, ]} | \keyss{\ctrl, t} & Jump to a tag|jump back \\
+  & \lstinline$:tags$ & Show the contents of the tag stack \\
+  & \lstinline$:ts$ \textit{name} & List the tags that match \textit{name} \\
+  & \keyss{g}\keyss{\ctrl, ]} & Like \keyss{\ctrl, ]}, but show prompt when these is several matches \\
+  \hline
 \end{longtable}
 
 \begin{longtable}{ l l | l}
