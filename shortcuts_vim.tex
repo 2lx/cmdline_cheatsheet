@@ -1,6 +1,5 @@
 \documentclass[main.tex]{subfiles}
 \newcommand{\vim}{\lstinline{vim}\xspace}
-\newcommand{\vmode}[1]{\colorbox{clrlightgray}{#1 mode}}
 
 \newcommand{\vaddr}[1][]{\textit{addr#1}}
 \newcommand{\vcmd}{\textit{cmd}}
@@ -14,11 +13,9 @@
 \begin{document}
 
 \begin{lstlisting}
-$> vim -u FileName                          # load non-standard vim settings
-# doesn't load .vimrc but vi-nocompatible mode
-$> vim -u NONE -N
-$> vim --version                            # list features
-$> vim -p `cat .sections`                   # load args
+$> vim -u FileName          # use FileName for initializations
+$> vim -u NONE -N           # skil all initializations, no-compatible mode
+$> vim -p `cat .sections`   # open tabs from file list
 \end{lstlisting}
 
 \setlength\LTleft{0pt}
@@ -174,7 +171,7 @@ $> vim -p `cat .sections`                   # load args
 
   \multicolumn{3}{l}{} \lstinline|:help substitute|  \\
   & \lstinline$:%s///gn$ & Report the number of matches (do not substitute) \\
-  & \lstinline$:$[range]\lstinline$s///$[\lstinline$g$] & For each line in \vrange\ replace one match [all matches] of \vpattern  \\
+  & \lstinline$:$[\vrange]\lstinline$s///$[\lstinline$g$] & For each line in \vrange\ replace one match [all matches] of \vpattern  \\
   & \lstinline$:%s///gc$ & Confirm each substitution \\
   \hline
 

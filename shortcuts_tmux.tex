@@ -1,85 +1,79 @@
 \documentclass[main.tex]{subfiles}
+\newcommand{\tmux}{\lstinline{tmux}\xspace}
+
 \begin{document}
 
 \begin{lstlisting}
 # https://gist.github.com/MohamedAlaa/2961058
 $> tmux new -s myname                       # Start new tmux session "myname"
-$> tmux a                                   # Attach to default session
-$> tmux a -t myname                         # Attach to session named "myname"
-$> tmux ls                                  # List session
+$> tmux a -t myname                         # Attach to session "myname"
+$> tmux ls                                  # List tmux sessions
 $> tmux kill-session -t myname              # Kill session "myname"
 $> tmux ls | grep : | cut -d. -f1 | \
    awk '{print substr($1, 0, length($1)-1)}' | \
    xargs kill                               # kill all tmux sessions
 \end{lstlisting}
 
+\setlength\LTleft{0pt}
+\setlength\LTright{0pt}
 \begin{longtable}{ l | l }
-\multicolumn{2}{c}{ Misc } \\
-\hline
-\keyss{\ctrl, b} , \keyss{d} & Detach \\
-\keyss{\ctrl, b} , \keyss{t} & Show big clock \\
-\keyss{\ctrl, b} , \keyss{?} & List shortcuts \\
-\keyss{\ctrl, b} , \keyss{:} & Prompt \\
-\hline
+  \multicolumn{2}{l}{ \vmode{Normal}} \\
+  \multicolumn{2}{l}{ $\bullet$ every key combination use prefix \keyss{\ctrl, b} } \\
+  \hline
+  \keyss{d} & Detach the current client \\
+  \keyss{t} & Show the time \\
+  \keyss{?} & List all key bindings \\
+  \keyss{:} & Enter the \tmux command prompt \\
 
-\multicolumn{2}{c}{ Sessions } \\
-\hline
-\keyss{\ctrl, b} , \keyss{s} & Choose session from a list \\
-\keyss{\ctrl, b} , \keyss{(} | \keyss{)} & Previous|next session \\
-\keyss{\ctrl, b} , \keyss{L} & Last session \\
-\keyss{\ctrl, b} , \keyss{\$} & Rename the current session \\
-\hline
+  \multicolumn{2}{c}{} sessions \\
+  \keyss{s} & Select a new session for the attached client \\
+  \keyss{(} | \keyss{)} & Switch the attached client to the previous|next session \\
+  \keyss{\$} & Rename the current session \\
+  \keyss{\ctrl, z} & Suspend the current \tmux client \\
 
-\multicolumn{2}{c}{ Windows } \\
-\hline
-\keyss{\ctrl, b} , \keyss{c} & Create new window \\
-\keyss{\ctrl, b} , \keyss{w} & List windows and sessions \\
-\keyss{\ctrl, b} , \keyss{p} | \keyss{n} & Previous|next window \\
-\keyss{\ctrl, b} , \keyss{l} & Last window \\
-\keyss{\ctrl, b} , \keyss{1} | \keyss{2} | .. | \keyss{9} & Open window \\
-\keyss{\ctrl, b} , \keyss{f} & Find window \\
-\keyss{\ctrl, b} , \keyss{{,}} & Rename the current window \\
-\keyss{\ctrl, b} , \keyss{\&} & Kill window \\
-\hline
+  \multicolumn{2}{c}{} windows \\
+  \keyss{c} & Create a new window \\
+  \keyss{w} & Choose the current window interactively \\
+  \keyss{p} | \keyss{n} & Change to the previous|next window \\
+  \keyss{0} | .. | \keyss{9} & Select windows 0 to 9 \\
+  \keyss{f} & Prompt to search for text in open windows \\
+  \keyss{{,}} & Rename the current window \\
+  \keyss{\&} & Kill the current window \\
 
-\multicolumn{2}{c}{ Panes } \\
-\hline
-\keyss{\ctrl, b} , \keyss{\%} | \keyss{|} & Vertical split \\
-\keyss{\ctrl, b} , \keyss{''} | \keyss{\_} & Horizontal split \\
-\keyss{\ctrl, b} , \keyss{o} & Swap panes \\
-\keyss{\ctrl, b} , \keyss{q} & Show pane numbers \\
-\keyss{\ctrl, b} , \keyss{x} & Kill pane \\
-\multirow{2}{*}{\keyss{\ctrl, b} , \keyss{+}} & Break pane into window \\
- & (e.g.\ to select text by mouse to copy) \\
-\keyss{\ctrl, b} , \keyss{-} & Restore pane from window \\
-\keyss{\ctrl, b} , \keyss{\SPACE} & Toggle between layouts \\
-\keyss{\ctrl, b} , \keyss{\arrowkeyleft} | \keyss{\arrowkeydown} | \keyss{\arrowkeyup} | \keyss{\arrowkeyright} & Focus left|down|up|right \\
-\keyss{\ctrl, b} , \keyss{h} | \keyss{j} | \keyss{k} | \keyss{l} & Focus left|down|up|right \\
-\keyss{\ctrl, b} , \keyss{H} | \keyss{J} | \keyss{K} | \keyss{L} & Resize current pane left|down|up|right \\
-\keyss{\ctrl, b} , \keyss{\{} | \keyss{\}} & Move current pane left|right \\
-\keyss{\ctrl, b} , \keyss{\ctrl, o} | \keyss{\Alt, o} & Rotate all panes counterclockwise|clockwise \\
-\keyss{\ctrl, b} , \keyss{!} & Move pane into a new separated window \\
-\hline
+  \multicolumn{2}{c}{} panes \\
+  \keyss{\%} | \keyss{|} | \keyss{''} | \keyss{\_} & Split the current pane in two horizontally|vertically \\
+  \keyss{o} & Select the next pane in the current window \\
+  \keyss{q} & Briefly display pane indexes \\
+  \keyss{x} & Kill the current pane \\
+  \keyss{-} & Delete the most recently copied buffer of text \\
+  \keyss{\SPACE} & Arrange the current window in the next preset layout \\
+  % \keyss{\arrowkeyleft} | \keyss{\arrowkeydown} | \keyss{\arrowkeyup} | \keyss{\arrowkeyright} & Focus left|down|up|right \\
+  \keyss{h} | \keyss{j} | \keyss{k} | \keyss{l} & \multicolumn{1}{l}{Focus left|down|up|right} non-standard \\
+  \keyss{H} | \keyss{J} | \keyss{K} | \keyss{L} & \multicolumn{1}{l}{Resize current pane left|down|up|right} non-standard \\
+  \keyss{\{} | \keyss{\}} & Swap the current pane with the previous|next pane \\
+  \keyss{\ctrl, o} | \keyss{\Alt, o} & Rotate the panes in the current window forwards|backwards \\
+  \keyss{!} & Break the current pane out of the window \\
+  \hline
 
-\multicolumn{2}{c}{ Selection mode (\url{vi}-like)} \\
-\hline
-\keyss{\ctrl, b} , \keyss{[} & Enter to selection mode \\
-\keyss{q} & Quit mode \\
-\keyss{\SPACE} & Start selection \\
-\keyss{\esc} & Clear selection \\
-\keyss{\return} & Copy selection \\
-\keyss{L} | \keyss{M} | \keyss{H} & Cursor to bottom|middle|top line \\
-\keyss{\ctrl, d} | \keyss{u} & Half page down|up \\
-\keyss{/} & Search forward \\
-\keyss{?} & Search backward \\
-\hline
+  \multicolumn{2}{l}{} \\
+  \multicolumn{2}{l}{ \vmode{Selection} (\url{vi}-like)} \\
+  \hline
+  \keyss{\ctrl, b}\keyss{[} & Enter to selection mode \\
+  \keyss{q} & Quit mode \\
+  \keyss{\SPACE} & Start selection \\
+  \keyss{\esc} & Clear selection \\
+  \keyss{\return} & Copy selection \\
+  \keyss{\ctrl, d} | \keyss{\ctrl, u} & Half page down|up \\
+  \keyss{/} & Search forward \\
+  \keyss{?} & Search backward \\
+  \hline
 
-\multicolumn{2}{c}{ Prompt } \\
-\hline
-\url{:resize-pane -L}|\url{-D}|\url{-U}|\url{-R 20} & Resizes pane left|down|up|right by 20 cells \\
-\url{:move-pane -t :3.2} & Split window 3's pane 2 and move the current pane there \\
-\hline
-
+  \multicolumn{2}{l}{ } \\
+  \multicolumn{2}{l}{ \vmode{Cmdline} } \\
+  \hline
+  \url{:resize-pane -L}|\url{D}|\url{U}|\url{R 2} & Resizes pane left|down|up|right by 2 cells \\
+  \url{:move-pane -t :3.2} & Split window 3's pane 2 and move the current pane there \\
+  \hline
 \end{longtable}
 
 \end{document}
