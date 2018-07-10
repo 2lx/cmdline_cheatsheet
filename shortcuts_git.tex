@@ -1,0 +1,79 @@
+\documentclass[main.tex]{subfiles}
+
+\lstset{
+    morekeywords={add, checkout, clone, commit, config, diff, fetch, help, init, log, mv, pull, push, reset, remote, rm, status, tag}
+}
+
+\newcommand{\git}{\lstinline{git}\xspace}
+
+\begin{document}
+
+\git configuration files priorities:
+\begin{enumerate}
+\item local repository settings: \path{.git/config}
+\item user settings: \path{$HOME/.gitconfig} or \path{$HOME/.config/git/config}
+\item system settings: \path{/etc/gitconfig}
+\end{enumerate}
+
+There are 3 \git directories:
+\begin{itemize}
+\item working (current state)
+\item index (\path{.git/index})
+\item repository
+\end{itemize}
+
+There are 4 file states in \git working directory:
+\begin{itemize}
+\item untracked files
+\item tracked (non-modified) files
+\item modified files
+\item indexed files
+\end{itemize}
+
+\setlength\LTleft{0pt}
+\setlength\LTright{0pt}
+\begin{longtable}{l | l}
+\multicolumn{2}{l}{ \lstinline|git config| } \lstinline|$> git help config|  \\
+    \hline
+\lstinline|--global user.name ""| & \multirow{3}{*}{ Update a global config parameter} \\
+\lstinline|--global user.email ""| & \\
+\lstinline|--global core.editor ""| & \\
+\hline
+\end{longtable}
+
+All possible commands:
+\begin{lstlisting}
+$> git add/checkout/clone/commit/config/diff/fetch/help/init/log/mv/pull/push/reset/remote/rm/status/tag
+\end{lstlisting}
+
+Examples:
+\begin{lstlisting}
+$> git status -s # short format of commit logs
+
+$> git diff # compares WORK with INDEX
+$> git diff --staged / diff --cached # compare INDEX with repo HEAD
+
+$> git commit -a # adds to index all modified files
+$> git commit --amend # recommits last commit
+
+$> git log -p -2 # shows all diffs from last 2 commits
+$> git log --stat # shows short statisctics for every commit
+$> git log --pretty=format:"..." --since --until --grep --author
+
+$> git reset HEAD filename # unstages file (delete from INDEX)
+
+$> git checkout -- [filename] # discards changes in working directory
+# -- splits file names section
+
+$> git remote -v # shows all remote repos
+$> git remote add name url
+$> git remote rename nameold namenew
+$> git remote rm
+$> git remote show origin # shows repo state
+$> git remote set-url name url # sets new url for this name
+
+$> git tag # adds lightweight tag
+$> git tag -a # adds tag with comment and shapshot
+\end{lstlisting}
+
+\end{document}

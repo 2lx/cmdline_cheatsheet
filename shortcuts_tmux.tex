@@ -1,5 +1,5 @@
 \documentclass[main.tex]{subfiles}
-\newcommand{\tmux}{\lstinline{tmux}\xspace}
+\newcommand{\tmux}{\lstinline$tmux$\xspace}
 
 \begin{document}
 
@@ -17,23 +17,29 @@ $> tmux ls | grep : | cut -d. -f1 | \
 \setlength\LTleft{0pt}
 \setlength\LTright{0pt}
 \begin{longtable}{ l | l }
-  \multicolumn{2}{l}{ \vmode{Normal}} \\
+  \multicolumn{2}{l}{\vmode{Normal}} \lstinline|$> man tmux|  \\
   \multicolumn{2}{l}{ $\bullet$ every key combination use prefix \keyss{\ctrl, b} } \\
   \hline
-  \keyss{d} & Detach the current client \\
+  \keyss{\ctrl, b} & Send \keyss{\ctrl, b} through to the application \\
   \keyss{t} & Show the time \\
   \keyss{?} & List all key bindings \\
   \keyss{:} & Enter the \tmux command prompt \\
+  \keyss{\#} & List all paste buffers \\
+  \keyss{=} & Choose which buffer to paste interactively from a list \\
+  \keyss{]} & Paste the most recently copied buffer of text \\
 
   \multicolumn{2}{c}{} sessions \\
   \keyss{s} & Select a new session for the attached client \\
   \keyss{(} | \keyss{)} & Switch the attached client to the previous|next session \\
   \keyss{\$} & Rename the current session \\
+  \keyss{d}|\keyss{D} & Detach the current client|choose a client to detach \\
+  \keyss{r} & Force redraw of the attached client \\
   \keyss{\ctrl, z} & Suspend the current \tmux client \\
 
   \multicolumn{2}{c}{} windows \\
   \keyss{c} & Create a new window \\
   \keyss{w} & Choose the current window interactively \\
+  \keyss{'} | \keyss{.} & Prompt for a window index to select|to move the current window \\
   \keyss{p} | \keyss{n} & Change to the previous|next window \\
   \keyss{0} | .. | \keyss{9} & Select windows 0 to 9 \\
   \keyss{f} & Prompt to search for text in open windows \\
@@ -41,7 +47,7 @@ $> tmux ls | grep : | cut -d. -f1 | \
   \keyss{\&} & Kill the current window \\
 
   \multicolumn{2}{c}{} panes \\
-  \keyss{\%} | \keyss{|} | \keyss{''} | \keyss{\_} & Split the current pane in two horizontally|vertically \\
+  \keyss{\%} | \keyss{|} | \keyss{''} | \keyss{\_} & Split the current pane into two horizontally|vertically \\
   \keyss{o} & Select the next pane in the current window \\
   \keyss{q} & Briefly display pane indexes \\
   \keyss{x} & Kill the current pane \\
@@ -49,21 +55,20 @@ $> tmux ls | grep : | cut -d. -f1 | \
   \keyss{\SPACE} & Arrange the current window in the next preset layout \\
   % \keyss{\arrowkeyleft} | \keyss{\arrowkeydown} | \keyss{\arrowkeyup} | \keyss{\arrowkeyright} & Focus left|down|up|right \\
   \keyss{h} | \keyss{j} | \keyss{k} | \keyss{l} & \multicolumn{1}{l}{Focus left|down|up|right} \vwarning{non-standard} \\
-  \keyss{H} | \keyss{J} | \keyss{K} | \keyss{L} & \multicolumn{1}{l}{Resize current pane left|down|up|right} \vwarning{non-standard} \\
+  \keyss{\ctrl, \arrowkeyleft} | \keyss{\arrowkeydown} | \keyss{\arrowkeyup} | \keyss{\arrowkeyright} & Resize current pane left|down|up|right \\
   \keyss{\{} | \keyss{\}} & Swap the current pane with the previous|next pane \\
   \keyss{\ctrl, o} | \keyss{\Alt, o} & Rotate the panes in the current window forwards|backwards \\
   \keyss{!} & Break the current pane out of the window \\
   \hline
 
   \multicolumn{2}{l}{} \\
-  \multicolumn{2}{l}{ \vmode{Selection} (\url{vi}-like)} \\
+  \multicolumn{2}{l}{ \vmode{Copy} (\lstinline$vi$-like)} \\
   \hline
-  \keyss{\ctrl, b}\keyss{[} & Enter to selection mode \\
-  \keyss{q} & Quit mode \\
+  \keyss{\ctrl, b}\keyss{[} | \keyss{q} & Enter|quit \vmode{Copy} \\
   \keyss{\SPACE} & Start selection \\
   \keyss{\esc} & Clear selection \\
   \keyss{\return} & Copy selection \\
-  \keyss{\ctrl, d} | \keyss{\ctrl, u} & Half page down|up \\
+  \keyss{\ctrl, d} | \keyss{\ctrl, u} & Halfpage down|up \\
   \keyss{/} & Search forward \\
   \keyss{?} & Search backward \\
   \hline
@@ -71,8 +76,8 @@ $> tmux ls | grep : | cut -d. -f1 | \
   \multicolumn{2}{l}{ } \\
   \multicolumn{2}{l}{ \vmode{Cmdline} } \\
   \hline
-  \url{:resize-pane -L}|\url{D}|\url{U}|\url{R 2} & Resizes pane left|down|up|right by 2 cells \\
-  \url{:move-pane -t :3.2} & Split window 3's pane 2 and move the current pane there \\
+  \lstinline$:resize-pane -L$|\lstinline$D$|\lstinline$U$|\lstinline$R 2$ & Resizes pane left|down|up|right by 2 cells \\
+  \lstinline$:move-pane -t :3.2$ & Split window 3's pane 2 and move the current pane there \\
   \hline
 \end{longtable}
 
