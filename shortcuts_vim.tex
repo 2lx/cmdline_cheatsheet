@@ -14,7 +14,7 @@
 
 \begin{lstlisting}
 $> vim -u FileName          # use FileName for initializations
-$> vim -u NONE -N           # skil all initializations, no-compatible mode
+$> vim -u NONE -N           # skip all initializations, no-compatible mode
 $> vim -p `cat .sections`   # open tabs from file list
 \end{lstlisting}
 
@@ -30,8 +30,7 @@ $> vim -p `cat .sections`   # open tabs from file list
   & \keyss{\^{}} | \keyss{g}\keyss{\_} & To the first|last non-blank char \\
   & \keyss{g}\keyss{0} | \keyss{g}\keyss{\$} & To the first|last char of \textbf{screen} line \\
   & \keyss{g}\keyss{\^{}} & To the first non-blank char of \textbf{screen} line \\
-  & \keyss{g}\keyss{m} & Half a screenwidth to the right \\
-  {[}\vnum] & \keyss{|} & To \vnum\textsuperscript{th} screen column \\
+  & \keyss{g}\keyss{m} | \keyss{|} & Half a screenwidth|to \vnum\textsuperscript{th} screen column to the right \\
   {[}\vnum] & \keyss{f} | \keyss{F} \emph{char} & To the \vnum\textsuperscript{th} occurence of \emph{char} to the right|left \\
   {[}\vnum] & \keyss{t} | \keyss{T} \emph{char} & Till before|after \vnum\textsuperscript{th} occurence of \emph{char} to the right|left \\
   {[}\vnum] & \keyss{;} | \keyss{{,}} & Repeat latest \keyss{f}, \keyss{F}, \keyss{t}, or \keyss{T} in opposite direction \\
@@ -45,13 +44,11 @@ $> vim -p `cat .sections`   # open tabs from file list
   {[}\vnum] & \lstinline$/string$ | \lstinline$?string$ & Search ''string'' in file forward|backward \\
   & \keyss{:} \vrange & Set cursor on the last line number in \vrange \\
 
-  \multicolumn{3}{l}{} \lstinline$:help word-motions$ \\
+  \multicolumn{3}{l}{} \lstinline$:help word-motions object-motions$ \\
   {[}\vnum] & \keyss{w} | \keyss{b} & To the first char of next|previous word \\
   {[}\vnum] & \keyss{e} | \keyss{g}\keyss{e} & To the last char of next|previous word \\
   {[}\vnum] & \keyss{W} | \keyss{B} & \multicolumn{1}{l}{To the first char of next|previous WORD} \lstinline$:h WORD$ \\
   {[}\vnum] & \keyss{E} | \keyss{g}\keyss{E} & To the last char of next|previous WORD \\
-
-  \multicolumn{3}{l}{} \lstinline$:help object-motions$ \\
   {[}\vnum] & \keyss{(} | \keyss{)} | \keyss{\}} | \keyss{\{} & \vnum\ sentences|paragraphs backward|forward \\
 
   \multicolumn{3}{l}{} \lstinline$:help mark-motions$ \\
@@ -60,15 +57,11 @@ $> vim -p `cat .sections`   # open tabs from file list
   & \keyss{`}\keyss{`} | \vaddr & Jump to the last motion place|\vaddr-format mark \\
   & \keyss{\%} | \keyss{`}\keyss{`} & Jump to paired bracket (keywords)|go back \\
 
-  \multicolumn{3}{l}{} \lstinline|:help jump-motions| \\
+  \multicolumn{3}{l}{} \lstinline|:help jump-motions changelist various-motions| \\
   {[}\vnum] & \keyss{\ctrl, o} | \keyss{ctrl, i} & Go to \vnum\ older|newer cursor position in jump list \\
   & \lstinline|:ju| & Print the jump list \\
-
-  \multicolumn{3}{l}{} \lstinline|:help changelist|  \\
   {[}\vnum] & \keyss{g}\keyss{;} | \keyss{g}\keyss{,} & Go to \vnum\ older|newer position in change list \\
   & \lstinline|:changes| & Print the change list \\
-
-  \multicolumn{3}{l}{} \lstinline|:help various-motions| \\
   {[}\vnum] & \keyss{\%} & Jump matching parenthesis in this line \\
   {[}\vnum] & \keyss{H} | \keyss{M} | \keyss{L} & To line \vnum\ from top|middle|bottom on the first non-blank char \\
   \hline
@@ -90,7 +83,7 @@ $> vim -p `cat .sections`   # open tabs from file list
   $\bullet$ & \multicolumn{2}{l}{repeat operator twice process the current line} \\
   $\bullet$ & \multicolumn{2}{l}{by default use register \{''\}} \\
   $\bullet$ & \multicolumn{2}{l}{to change default register use \keyss{''}\vregister} \\
-  $\bullet$ & \multicolumn{2}{l}{registers \{*\} and \{+\} used for primary and system clipboard} \\
+  $\bullet$ & \multicolumn{2}{l}{registers \{*\} and \{+\} are used for primary and system clipboard} \\
   \hline
   {[}\vnum] & \keyss{d} & Delete \\
   {[}\vnum] & \keyss{<} | \keyss{>} & Shift left|right \\
@@ -222,7 +215,7 @@ $> vim -p `cat .sections`   # open tabs from file list
   \hline
 
   \multicolumn{3}{l}{} \\
-  \multicolumn{3}{l}{\vmode{Normal}: Buffers \& windows} \lstinline|:help buffers|  \\
+  \multicolumn{3}{l}{\vmode{Normal}: Buffers, windows, tabs} \lstinline|:help buffers|  \\
   \hline
   \multicolumn{3}{l}{} \lstinline|:help opening-window| \\
   & \keyss{\ctrl, w}(\keyss{s} | \keyss{v}) & \multirow{2}{*}{Split current window in two vert|hor} \\
@@ -233,6 +226,7 @@ $> vim -p `cat .sections`   # open tabs from file list
   {[}\vnum] & \keyss{\ctrl, w}\keyss{c} | \lstinline|:clo| & Hide the current or \vnum\textsuperscript{th} window if \lstinline|hidden| is set \\
   & \lstinline|:|\vnum\lstinline|hid| & Hide the current or \vnum\textsuperscript{th} window \\
   {[}\vnum] & \keyss{\ctrl, w}\keyss{o} | \lstinline|:on| & Make the current window the only on the screen \\
+
   \multicolumn{3}{l}{} \lstinline|:help window-move-cursor| \\
   {[}\vnum] & \keyss{\ctrl, w}(\keyss{h} | \keyss{l}) & Move cursor to \vnum\textsuperscript{th} window left|right of current one \\
   {[}\vnum] & \keyss{\ctrl, w}(\keyss{j} | \keyss{k}) & Move cursor to \vnum\textsuperscript{th} window below|above of current one \\
@@ -265,14 +259,21 @@ $> vim -p `cat .sections`   # open tabs from file list
   & \lstinline$:$[\vrange]\lstinline$bd$ & Unload buffers \vrange\ and delete it from the buffer list \\
   & \lstinline$:$[\vnum]\lstinline$bn$|\lstinline$:$[\vnum]\lstinline$bp$ & Go to \vnum\textsuperscript{th} next|previous buffer in buffer list \\
   & \lstinline$:bf$|\lstinline$:bl$ & Go to first|last buffer in buffer list \\
+
+  \multicolumn{3}{c}{} \lstinline|:help tab-page-commands|  \\
+  {[}\vnum] & \lstinline$:tabe$|\lstinline$:tabn$ [\vfname] & Open a new tab page, [edit \vfname] \vnum\ times \\
+  & \keyss{\ctrl, w}\keyss{g}\keyss{f} & Open a new tab page and edit the file name under the cursor \\
+  & \lstinline$:tabc$|\lstinline$:tabo$ & Close current tab|all other tabs \\
+  & \lstinline$:tabn $[\vnum]|\lstinline$:tabp$ & Open next [or \vnum]|previous tab \\
+  & \keyss{g}\keyss{t} | \keyss{g}\keyss{T} & Go to the next|previous tab page \\
+  & \lstinline$:tabs$ & List the tab pages and the windows they contain \\
+  & \lstinline$:tabm $\vnum &  Move the current tab to after tab \vnum \\
   \hline
 
   \multicolumn{3}{l}{} \\
   \multicolumn{3}{l}{\vmode{Normal}: Files} \lstinline|:help edit-files| \\
   \hline
   & \lstinline|:f|  & Prints the current file name \\
-
-  \multicolumn{3}{l}{} \lstinline|:help edit-a-file| \\
   & \lstinline|:e|  & Re-edit the current file \\
   & \keyss{\ctrl, \^{}} & Show the alternate file (see in \lstinline$:ls$) \\
   & \keyss{g}\keyss{f} & Edit the file whose name is under or after the cursor \\
@@ -287,21 +288,17 @@ $> vim -p `cat .sections`   # open tabs from file list
   & \lstinline$:fir$|\lstinline$:la$ & Edit first|last file \\
   & \lstinline$:argdo$ \vcmd & Executr \vcmd for each file in the argument list \\
 
-  \multicolumn{3}{l}{} \lstinline|:help writing| \\
+  \multicolumn{3}{l}{} \lstinline|:help writing write-quit| \\
   & \lstinline$:w $[\lstinline$!$] & Write the whole buffer to the current file [forcefully] \\
   & \lstinline$:wa $[\lstinline$!$] & Write all changed buffers [forcefully] \\
   & \lstinline$:sav $[\lstinline$!$] \vfname & Save the current buffer under the name \vfname \\
-
-  \multicolumn{3}{l}{} \lstinline|:help write-quit| \\
   & \lstinline$:q $[\lstinline$!$] & Quit the current window [without writing] \\
   & \lstinline$:wq$|\lstinline$:x $[\lstinline$!$]|\keyss{Z}\keyss{Z} & Write the current file and quit \\
   & \lstinline$:qa $[\lstinline$!$] & Exit \vim [without writing] \\
 
-  \multicolumn{3}{l}{} \lstinline|:help current-directory| \\
+  \multicolumn{3}{l}{} \lstinline|:help current-directory encryption| \\
   & \lstinline$:cd$|\lstinline$:pwd$ & Print the current directory \\
   & \lstinline$:cd $ \vfname & Change the current directory \\
-
-  \multicolumn{3}{l}{} \lstinline|:help encryption| \\
   & \lstinline$:X$ & Prompt for an encryption key \\
   \hline
 
@@ -317,11 +314,44 @@ $> vim -p `cat .sections`   # open tabs from file list
   \multicolumn{3}{l}{} \lstinline|:help quickfix| \\
   & \lstinline$:cl $\vnum & List the current and next \vnum\ valid errors \\
   & \lstinline$:cc $\vnum & Display error \vnum \\
-  & \lstinline$:cp$|\lstinline$:cn$ & Display previous|next error in the list \\
-  \hline
-\end{longtable}
+  & \lstinline$:cf$|\lstinline$:cp$|\lstinline$:cn$|\lstinline$:cl$ & Display first|previous|next|last error in the list \\
+  & \lstinline$:cope$|\lstinline$:ccl$ & Show|hide the list of errors \\
 
-\begin{longtable}{ l l | l}
+  \multicolumn{3}{l}{} \lstinline|:help spell| \\
+  & \lstinline$:set spell$ & Switches on spell checking \\
+  & \lstinline$:set spelllang=en_us$ & Setup spell language \\
+  & \keyss{[}\keyss{s} | \keyss{]}\keyss{s} & Move to previous|next misspelled word after the cursor \\
+  & \keyss{z}\keyss{=} & For the word under|after cursor suggest correctly spelled words \\
+  & \keyss{z}\keyss{g} | \keyss{z}\keyss{G} & Add word under cursor as good in \lstinline$spellfile$|internal-wordlist \\
+  & \keyss{z}\keyss{w} | \keyss{z}\keyss{W} & Add word under cursor as wrong in \lstinline$spellfile$|internal-wordlist \\
+  & \keyss{z}\keyss{u}\keyss{g} | \keyss{z}\keyss{u}\keyss{w} & Undo \keyss{z}\keyss{g}|\keyss{z}\keyss{w} \\
+  \hline
+
+  \multicolumn{3}{l}{} \\
+  \multicolumn{3}{l}{\vmode{Insert} Completion} \lstinline|:help ins-completion|  \\
+  \hline
+  & \keyss{\ctrl, x}\keyss{\ctrl, l} & Whole lines \\
+  & \keyss{\ctrl, x}\keyss{\ctrl, n} & Keywords in the current line \\
+  & \keyss{\ctrl, x}\keyss{\ctrl, k} & Keywords in `dictionary` \\
+  & \keyss{\ctrl, x}\keyss{\ctrl, t} & Keywords in `thesaurus`, thesaurus-style \\
+  & \keyss{\ctrl, x}\keyss{\ctrl, i} & Keywords in the current and included files \\
+  & \keyss{\ctrl, x}\keyss{\ctrl, ]} & Tags \\
+  & \keyss{\ctrl, x}\keyss{\ctrl, f} & File names \\
+  & \keyss{\ctrl, x}\keyss{\ctrl, d} & Definitions of macros \\
+  & \keyss{\ctrl, x}\keyss{\ctrl, v} & \vim\ command-line \\
+  & \keyss{\ctrl, x}\keyss{\ctrl, u} & User defined completion \\
+  & \keyss{\ctrl, x}\keyss{\ctrl, o} & Omni completion \\
+  & \keyss{\ctrl, x}\keyss{s} & Spelling suggestions \\
+  & \keyss{\ctrl, n} & Complete completion (\lstinline|:set complete| defines priorities)   \\
+
+  \multicolumn{3}{l}{} \lstinline|:help popupmenu-keys| \\
+  & \keyss{\ctrl, n} | \keyss{\ctrl, p} & When completion is active, select keywords in list \\
+  & \keyss{\ctrl, e} & When completion is active, stop it and go back\\
+  & \keyss{\ctrl, y} & When completion is active, stop it and accept selected entry \\
+  & \keyss{\ctrl, h} | \keyss{\ctrl, l} & When completion is active, delete|add char from current match \\
+  & \keyss{char} & When Completion is active, stop completion and add one char \\
+  \hline
+
   \multicolumn{3}{l}{} \\
   \multicolumn{3}{l}{\vmode{Cmdline}: Shortcuts} \\
   \hline
@@ -333,44 +363,30 @@ $> vim -p `cat .sections`   # open tabs from file list
   & \keyss{q}\keyss{:} | \keyss{q}\keyss{/} & Show command|search history \\
   & \lstinline$:$\keyss{\ctrl, f} & Show command history in \vmode{Cmdline} \\
   & \lstinline$:!$\vcmd\lstinline$ $[\vrange] & Execute shell \vcmd\ with \vrange \\
-  & \keyss{\ctrl, w}(\keyss{h} | \keyss{j} | \keyss{k} | \keyss{l} | \keyss{w}) & Focus left|down|up|right|last buffer \\
-  & \keyss{\ctrl, w}(\keyss{c} | \keyss{o}) & Close active|other window \\
-  & \keyss{\ctrl, w}(\keyss{=} | \vnum \keyss{\_} | \vnum \keyss{|}) & Set same size|\vnum\ height|\vnum\ width \\
-  & \keyss{g}\keyss{t} | \keyss{g}\keyss{T} & Go next|prev tab \\
   \hline
 \end{longtable}
 
-\begin{longtable}{ l | l | l}
-  \multicolumn{3}{c}{ \vmode{Cmdline}: Files and buffers } \\
+\begin{longtable}{ l l | l}
+  \multicolumn{3}{l}{} \\
+  \multicolumn{3}{l}{ \vmode{Cmdline}: Examples } \\
   \hline
-  \lstinline$:ar$ [\vfname] [\vfname] & \lstinline$args$ & List args|set argument list \\
-  \lstinline$:ar `cat .sections`$ & \lstinline$args$ & Load files from list to \vim \\
-  \lstinline$:... `$\vcmd\lstinline$`$ & & Execute \vcmd\ in shell \\
-  \lstinline$:cl$|\lstinline$:on$ & \lstinline$close$|\lstinline$only$ & Close active|other windows \\
-  \lstinline$:tabe$ \vfname & \lstinline$tabedit$ & Create new tab [edit \vfname] \\
-  \lstinline$:tabc$|\lstinline$:tabo$ & \lstinline$tabclose$|\lstinline$tabonly$ & Close active|other tabs \\
-  \lstinline$:tabn $[\vnum]|\lstinline$:tabp$ & \lstinline$tabnext$|\lstinline$tabprevious$ & Open next [or \vnum]|previous tab \\
-  \lstinline$:tabm $\vnum & \lstinline$tabmove$ & Move current tab after \vnum \\
-  \hline
-
-  \multicolumn{3}{c}{ \vmode{Cmdline}: Commands } \\
-  \hline
-  \lstinline$:ve$ & \lstinline$version$ & List features \\
-  \lstinline$:h :$[\vcmd] & \lstinline$help$ & Show info about \vim [\vcmd] \\
-  \lstinline|:so $MYVIMRC| & \lstinline$source$ & Reload \vim settings \\
-  \lstinline$:r !$\vcmd & \lstinline$read$ & Read output shell \vcmd in buffer \\
-  \lstinline$:set$\vparam[\lstinline$=$\vvalue] & \lstinline$set$ & Set parameter value \\
-  \lstinline$:set$\vparam? & \lstinline$set$ & Show parameter value \\
-  \lstinline$:$[\vrange]\lstinline$s/t1/t2$[\lstinline$/g$] & \lstinline$substitute$ & Replace ''t1'' with ''t2'' within \vrange \\
-  \lstinline$:$[\vrange]\lstinline$p$ & \lstinline$print$ & Print \vrange \\
-  \lstinline$:$[\vrange]\lstinline$t$ \vaddr & \lstinline$copy$ & Copy \vrange\ lines and paste after \vaddr \\
-  \lstinline$:$[\vrange]\lstinline$m$ \vaddr & \lstinline$move$ & Move \vrange\ lines and after \vaddr \\
-  \lstinline$:$[\vrange]\lstinline$norm $\vcmd & \lstinline$normal$ & Process \vmode{Normal} \vcmd\ with \vrange \\
-  \lstinline$:sh$ & \lstinline$shell$ & Launch shell \\
-  \lstinline$:pw$ & \lstinline$pwd$ & Print work dir \\
-  \lstinline$:fin $\vfname & \lstinline$find$ & Find \vfname in \lstinline$path$ \\
-  \lstinline$:!mkdir -p %:h$ & & Create path to current file \\
-  \lstinline$:w !sudo tee % > /dev/null$ & & Save file opened without write rights \\
+  & \lstinline|:help option-list| & Show all \lstinline|.vimrc| available options  \\
+  & \lstinline$:... `$\vcmd\lstinline$`$ & Execute \vcmd\ in shell \\
+  & \lstinline$:ve$ & List features \\
+  & \lstinline$:h :$[\vcmd] & Show info about \vim [\vcmd] \\
+  & \lstinline|:so $MYVIMRC| & Reload \vim settings \\
+  & \lstinline$:r !$\vcmd & Read output shell \vcmd in buffer \\
+  & \lstinline$:set $\vparam[\lstinline$?$][\lstinline$=$\vvalue] & Show|set parameter value \\
+  & \lstinline$:$[\vrange]\lstinline$s/t1/t2$[\lstinline$/g$] & Replace ''t1'' with ''t2'' within \vrange \\
+  & \lstinline$:$[\vrange]\lstinline$p$ & Print \vrange \\
+  & \lstinline$:$[\vrange]\lstinline$t$ \vaddr & Copy \vrange\ lines and paste after \vaddr \\
+  & \lstinline$:$[\vrange]\lstinline$m$ \vaddr & Move \vrange\ lines and after \vaddr \\
+  & \lstinline$:$[\vrange]\lstinline$norm $\vcmd & Process \vmode{Normal} \vcmd\ with \vrange \\
+  & \lstinline$:sh$ & Launch shell \\
+  & \lstinline$:pw$ & Print work directory \\
+  & \lstinline$:fin $\vfname & Find \vfname in \lstinline$path$ \\
+  & \lstinline$:!mkdir -p %:h$ & Create path to current file \\
+  & \lstinline$:w !sudo tee % > /dev/null$ & Save file opened without write rights \\
   \hline
 \end{longtable}
 
